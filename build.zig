@@ -14,11 +14,13 @@ pub fn build(b: *std.build.Builder) void {
     const exe = b.addExecutable("ps2.elf", "src/main.c");
     exe.setTarget(target);
     exe.setBuildMode(mode);
+    exe.setLibCFile(std.build.FileSource.relative("./out.txt"));
     exe.defineCMacro("_EE", null);
     exe.addIncludePath("/usr/local/ps2dev/ee/mips64r5900el-ps2-elf/include");
     exe.addIncludePath("/usr/local/ps2dev/ps2sdk/common/include");
     exe.addIncludePath("/usr/local/ps2dev/gsKit/include");
     exe.addLibraryPath("/usr/local/ps2dev/gsKit/lib");
+    exe.linkLibC();
     exe.install();
 
     const run_cmd = exe.run();
