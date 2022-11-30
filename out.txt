@@ -9,8 +9,9 @@ sys_include_dir=/usr/local/ps2dev/ee/mips64r5900el-ps2-elf/include
 
 # The directory that contains `crt1.o` or `crt2.o`.
 # On POSIX, can be found with `cc -print-file-name=crt1.o`.
-# Not needed when targeting MacOS.
+# Not needed when targeting MacOS
 crt_dir=/usr/local/ps2dev/ee/mips64r5900el-ps2-elf/lib
+#crt_dir=/usr/local/ps2dev/ee/lib/gcc/mips64r5900el-ps2-elf/11.3.0
 
 # The directory that contains `vcruntime.lib`.
 # Only needed when targeting MSVC on Windows.
@@ -22,4 +23,4 @@ kernel32_lib_dir=
 
 # The directory that contains `crtbeginS.o` and `crtendS.o`
 # Only needed when targeting Haiku.
-gcc_dir=
+gcc_dir=/usr/local/ps2dev/ee/lib/gcc/mips64r5900el-ps2-elf/11.3.0
