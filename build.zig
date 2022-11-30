@@ -1,10 +1,13 @@
 const std = @import("std");
 
 pub fn build(b: *std.build.Builder) void {
-    const target = std.zig.CrossTarget{
-        .cpu_arch = .mipsel,
-        .os_tag = .freestanding,
-        // need to get the target right for PS2.... I'm not sure how to tell zig about the 5900
+    const target = std.zig.CrossTarget {
+        .cpu_arch = std.Target.Cpu.Arch.mips64el,
+        .cpu_model =  std.zig.CrossTarget.CpuModel {
+          .explicit = &std.Target.mips.cpu.mips3
+        },
+        .os_tag = std.Target.Os.Tag.freestanding,
+        .abi = std.Target.Abi.gnuabin32
     };
 
     // Standard release options allow the person running `zig build` to select
@@ -19,7 +22,9 @@ pub fn build(b: *std.build.Builder) void {
         lib.install();
     }
 
-    const exe = b.addExecutable("ps2.elf", "src/main.c");
+    var exe = b.addExecutable("ps2.elf", "src/main.c");
+    exe.force_pic = false;
+    exe.pie = false;
     exe.setTarget(target);
     exe.setBuildMode(mode);
     exe.setLibCFile(std.build.FileSource.relative("./out.txt"));
